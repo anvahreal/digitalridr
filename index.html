@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Ridr - Nigeria's Premier Travels & Apartments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dr-orange': '#FF6B35',
+                        'dr-blue': '#00A8E8',
+                        'dr-light-blue': '#007EA7',
+                        'dr-dark-blue': '#003459',
+                        'nigeria-green': '#008751'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .property-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .property-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .search-shadow { box-shadow: 0 25px 50px rgba(0,0,0,0.25); }
+        .gradient-bg { background: linear-gradient(135deg, #00A8E8 0%, #007EA7 30%, #008751 70%, #FF6B35 100%); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255,255,255,0.95); }
+        .logo-pin {
+            width: 24px;
+            height: 24px;
+            background: #FF6B35;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            position: relative;
+        }
+        .logo-pin::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 107, 53, 0.6); }
+        }
+        .naira::before { content: '₦'; }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Header -->
+    <header class="bg-white shadow-lg sticky top-0 z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Digital Ridr Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="logo-pin"></div>
+                    <div class="flex flex-col">
+                        <div class="flex items-baseline space-x-1">
+                            <span class="text-2xl font-bold text-dr-blue">Digital</span>
+                            <span class="text-2xl font-bold text-dr-orange">Ridr</span>
+                        </div>
+                        <span class="text-xs font-medium text-dr-orange tracking-wider uppercase">Travels & Apartments</span>
+                    </div>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-dr-blue font-medium transition-colors">Accommodations</a>
+                    <a href="#" class="text-gray-700 hover:text-dr-blue font-medium transition-colors">City Tours</a>
+                    <a href="#" class="text-gray-700 hover:text-dr-blue font-medium transition-colors">Business Travel</a>
+                    <a href="#" class="text-gray-700 hover:text-dr-blue font-medium transition-colors">List Property</a>
+                </nav>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-700 hover:text-dr-orange font-medium transition-colors">Become a Host</button>
+                    <div class="w-10 h-10 bg-gradient-to-r from-dr-blue to-dr-orange rounded-full flex items-center justify-center text-white font-bold">
+                        🇳🇬
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative gradient-bg text-white py-24 overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="floating-animation">
+                <h1 class="text-6xl font-bold mb-6 leading-tight">
+                    Discover Nigeria's
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-white to-orange-200">
+                        Hidden Gems
+                    </span>
+                </h1>
+                <p class="text-xl mb-12 opacity-90 max-w-2xl mx-auto">
+                    From Lagos luxury to Abuja elegance - Experience Nigeria's finest accommodations with Digital Ridr
+                </p>
+            </div>
+            
+            <!-- Enhanced Search Bar -->
+            <div class="bg-white rounded-2xl p-3 search-shadow max-w-5xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-2">
+                    <div class="flex flex-col p-5 text-left rounded-xl hover:bg-gray-50 transition-colors">
+                        <label class="text-xs font-bold text-dr-blue mb-2 uppercase tracking-wide">Destination</label>
+                        <input type="text" placeholder="Lagos, Abuja, Port Harcourt..." class="text-gray-800 text-base outline-none font-medium" id="locationInput">
+                    </div>
+                    <div class="flex flex-col p-5 text-left border-l border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+                        <label class="text-xs font-bold text-dr-blue mb-2 uppercase tracking-wide">Check In</label>
+                        <input type="date" class="text-gray-800 text-base outline-none font-medium" id="checkinInput">
+                    </div>
+                    <div class="flex flex-col p-5 text-left border-l border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+                        <label class="text-xs font-bold text-dr-blue mb-2 uppercase tracking-wide">Check Out</label>
+                        <input type="date" class="text-gray-800 text-base outline-none font-medium" id="checkoutInput">
+                    </div>
+                    <div class="flex flex-col p-5 text-left border-l border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+                        <label class="text-xs font-bold text-dr-blue mb-2 uppercase tracking-wide">Guests</label>
+                        <select class="text-gray-800 text-base outline-none font-medium bg-transparent" id="guestSelect">
+                            <option value="1">1 Guest</option>
+                            <option value="2" selected>2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5+">5+ Guests</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-center p-3">
+                        <button onclick="searchProperties()" class="bg-gradient-to-r from-dr-orange to-red-500 hover:from-red-500 hover:to-dr-orange text-white p-4 rounded-xl transition-all duration-300 w-full font-semibold text-lg shadow-lg hover:shadow-xl">
+                            Search Properties
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filters -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-wrap gap-4 items-center justify-center">
+            <button onclick="filterProperties('all')" class="filter-btn bg-dr-blue text-white px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105" data-filter="all">All Properties</button>
+            <button onclick="filterProperties('luxury')" class="filter-btn bg-gray-100 hover:bg-dr-orange hover:text-white px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105" data-filter="luxury">Luxury</button>
+            <button onclick="filterProperties('waterfront')" class="filter-btn bg-gray-100 hover:bg-dr-orange hover:text-white px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105" data-filter="waterfront">Waterfront</button>
+            <button onclick="filterProperties('city')" class="filter-btn bg-gray-100 hover:bg-dr-orange hover:text-white px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105" data-filter="city">City Center</button>
+            <button onclick="filterProperties('business')" class="filter-btn bg-gray-100 hover:bg-dr-orange hover:text-white px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105" data-filter="business">Business</button>
+            <button onclick="filterProperties('cultural')" class="filter-btn bg-gray-100 hover:bg-dr-orange hover:text-white px-8 py-3 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105" data-filter="cultural">Cultural</button>
+        </div>
+    </section>
+
+    <!-- Property Listings -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Featured Nigerian Properties</h2>
+            <p class="text-xl text-gray-600">Handpicked accommodations across Nigeria's vibrant cities</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="propertyGrid">
+            <!-- Properties will be populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Property Modal -->
+    <div id="propertyModal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 id="modalTitle" class="text-3xl font-bold text-gray-900"></h2>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-dr-orange transition-colors p-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="modalContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="logo-pin"></div>
+                        <div class="flex flex-col">
+                            <div class="flex items-baseline space-x-1">
+                                <span class="text-2xl font-bold text-dr-blue">Digital</span>
+                                <span class="text-2xl font-bold text-dr-orange">Ridr</span>
+                            </div>
+                            <span class="text-xs font-medium text-dr-orange tracking-wider uppercase">Travels & Apartments</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">Nigeria's trusted partner for premium accommodations from Lagos to Abuja, Port Harcourt to Kano.</p>
+                    <div class="flex space-x-4">
+                        <div class="w-10 h-10 bg-dr-blue rounded-full flex items-center justify-center hover:bg-dr-orange transition-colors cursor-pointer">📘</div>
+                        <div class="w-10 h-10 bg-dr-blue rounded-full flex items-center justify-center hover:bg-dr-orange transition-colors cursor-pointer">📷</div>
+                        <div class="w-10 h-10 bg-dr-blue rounded-full flex items-center justify-center hover:bg-dr-orange transition-colors cursor-pointer">🐦</div>
+                        <div class="w-10 h-10 bg-nigeria-green rounded-full flex items-center justify-center hover:bg-dr-orange transition-colors cursor-pointer">💬</div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4 text-dr-orange">Company</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-dr-blue transition-colors">About Digital Ridr</a></li>
+                        <li><a href="#" class="hover:text-dr-blue transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-dr-blue transition-colors">Press</a></li>
+                        <li><a href="#" class="hover:text-dr-blue transition-colors">Nigerian Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-4 text-dr-orange">Support</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-dr-blue transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-dr-blue transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-dr-blue transition-colors">Safety Guidelines</a></li>
+                        <li><a href="#" class="hover:text-dr-blue transition-colors">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Digital Ridr Nigeria. All rights reserved. Proudly Nigerian 🇳🇬</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const properties = [
+            {
+                id: 1,
+                title: "Luxury Penthouse Victoria Island",
+                location: "Victoria Island, Lagos",
+                price: 85000,
+                rating: 4.9,
+                reviews: 247,
+                type: "luxury",
+                category: "city",
+                image: "🏙️",
+                guests: 8,
+                bedrooms: 4,
+                bathrooms: 3,
+                amenities: ["Ocean View", "Private Pool", "24/7 Security", "Gym Access", "Concierge", "Parking"],
+                description: "Stunning penthouse in the heart of Lagos with panoramic views of Lagos Lagoon and Atlantic Ocean."
+            },
+            {
+                id: 2,
+                title: "Executive Suite Maitama",
+                location: "Maitama, Abuja",
+                price: 65000,
+                rating: 4.8,
+                reviews: 189,
+                type: "luxury",
+                category: "business",
+                image: "🏢",
+                guests: 4,
+                bedrooms: 2,
+                bathrooms: 2,
+                amenities: ["City View", "Business Center", "High-Speed WiFi", "Airport Transfer", "Restaurant", "Spa"],
+                description: "Premium executive accommodation in Abuja's diplomatic district, perfect for business travelers."
+            },
+            {
+                id: 3,
+                title: "Waterfront Villa Lekki",
+                location: "Lekki Peninsula, Lagos",
+                price: 120000,
+                rating: 4.9,
+                reviews: 156,
+                type: "luxury",
+                category: "waterfront",
+                image: "🌊",
+                guests: 12,
+                bedrooms: 6,
+                bathrooms: 5,
+                amenities: ["Private Beach", "Boat Dock", "Swimming Pool", "BBQ Area", "Garden", "Security"],
+                description: "Exclusive waterfront villa with private beach access and stunning lagoon views."
+            },
+            {
+                id: 4,
+                title: "Cultural Heritage House Kano",
+                location: "Kano City, Kano",
+                price: 35000,
+                rating: 4.7,
+                reviews: 94,
+                type: "cultural",
+                category: "cultural",
+                image: "🏛️",
+                guests: 8,
+                bedrooms: 4,
+                bathrooms: 3,
+                amenities: ["Traditional Architecture", "Cultural Tours", "Local Cuisine", "Craft Workshops", "Garden", "WiFi"],
+                description: "Experience authentic Hausa culture in this beautifully restored traditional compound."
+            },
+            {
+                id: 5,
+                title: "Modern Apartment GRA Port Harcourt",
+                location: "GRA, Port Harcourt",
+                price: 45000,
+                rating: 4.6,
+                reviews: 203,
+                type: "city",
+                category: "city",
+                image: "🏘️",
+                guests: 6,
+                bedrooms: 3,
+                bathrooms: 2,
+                amenities: ["City Center", "Shopping Mall Access", "Restaurant", "Gym", "Parking", "WiFi"],
+                description: "Contemporary apartment in Port Harcourt's prestigious Government Reserved Area."
+            },
+            {
+                id: 6,
+                title: "Business Hotel Ikeja",
+                location: "Ikeja, Lagos",
+                price: 55000,
+                rating: 4.5,
+                reviews: 278,
+                type: "business",
+                category: "business",
+                image: "💼",
+                guests: 2,
+                bedrooms: 1,
+                bathrooms: 1,
+                amenities: ["Airport Proximity", "Business Center", "Conference Rooms", "24/7 Service", "Restaurant", "Laundry"],
+                description: "Perfect for business travelers with easy access to Murtala Muhammed Airport."
+            },
+            {
+                id: 7,
+                title: "Luxury Resort Calabar",
+                location: "Calabar, Cross River",
+                price: 75000,
+                rating: 4.8,
+                reviews: 145,
+                type: "luxury",
+                category: "cultural",
+                image: "🌴",
+                guests: 10,
+                bedrooms: 5,
+                bathrooms: 4,
+                amenities: ["Resort Facilities", "Cultural Center", "Spa", "Restaurant", "Tour Guide", "Transportation"],
+                description: "Luxury resort experience in Nigeria's tourism capital with rich cultural heritage."
+            },
+            {
+                id: 8,
+                title: "Serviced Apartment Wuse II",
+                location: "Wuse II, Abuja",
+                price: 50000,
+                rating: 4.7,
+                reviews: 167,
+                type: "business",
+                category: "city",
+                image: "🏬",
+                guests: 4,
+                bedrooms: 2,
+                bathrooms: 2,
+                amenities: ["Central Location", "Shopping Centers", "Restaurants", "Public Transport", "Security", "WiFi"],
+                description: "Fully serviced apartment in Abuja's commercial hub with easy access to government offices."
+            },
+            {
+                id: 9,
+                title: "Beachfront Resort Lagos",
+                location: "Tarkwa Bay, Lagos",
+                price: 95000,
+                rating: 4.9,
+                reviews: 112,
+                type: "luxury",
+                category: "waterfront",
+                image: "🏖️",
+                guests: 8,
+                bedrooms: 4,
+                bathrooms: 3,
+                amenities: ["Private Beach", "Water Sports", "Restaurant", "Bar", "Spa", "Boat Transfer"],
+                description: "Exclusive island resort accessible only by boat, offering pristine beaches and luxury amenities."
+            },
+            {
+                id: 10,
+                title: "Heritage Lodge Benin City",
+                location: "Benin City, Edo",
+                price: 40000,
+                rating: 4.6,
+                reviews: 89,
+                type: "cultural",
+                category: "cultural",
+                image: "👑",
+                guests: 6,
+                bedrooms: 3,
+                bathrooms: 2,
+                amenities: ["Historical Tours", "Art Gallery", "Traditional Cuisine", "Cultural Shows", "Garden", "WiFi"],
+                description: "Immerse yourself in the rich history of the ancient Benin Kingdom with guided cultural experiences."
+            }
+        ];
+
+        let currentFilter = 'all';
+        let currentProperties = properties;
+
+        function formatNaira(amount) {
+            return new Intl.NumberFormat('en-NG', {
+                style: 'currency',
+                currency: 'NGN',
+                minimumFractionDigits: 0
+            }).format(amount);
+        }
+
+        function renderProperties(propertiesToRender = currentProperties) {
+            const grid = document.getElementById('propertyGrid');
+            grid.innerHTML = propertiesToRender.map(property => `
+                <div class="property-card bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer border border-gray-100" onclick="openModal(${property.id})">
+                    <div class="h-56 bg-gradient-to-br from-dr-blue via-nigeria-green to-dr-orange flex items-center justify-center text-7xl relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black opacity-20"></div>
+                        <span class="relative z-10">${property.image}</span>
+                        <div class="absolute top-4 right-4 bg-white bg-opacity-90 px-3 py-1 rounded-full">
+                            <span class="text-dr-orange font-bold text-sm">⭐ ${property.rating}</span>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-nigeria-green bg-opacity-90 px-2 py-1 rounded-full">
+                            <span class="text-white font-bold text-xs">🇳🇬 NIGERIA</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="font-bold text-lg text-gray-900 truncate pr-2">${property.title}</h3>
+                        </div>
+                        <p class="text-dr-blue font-semibold text-sm mb-2">${property.location}</p>
+                        <p class="text-gray-600 text-sm mb-4">${property.guests} guests • ${property.bedrooms} bedrooms • ${property.bathrooms} bathrooms</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-bold text-2xl text-dr-orange">${formatNaira(property.price)}</span>
+                                <span class="text-gray-500 text-sm">/ night</span>
+                            </div>
+                            <span class="text-gray-500 text-sm bg-gray-100 px-3 py-1 rounded-full">${property.reviews} reviews</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterProperties(type) {
+            currentFilter = type;
+            
+            // Update filter button styles
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-dr-blue', 'text-white', 'bg-dr-orange');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            
+            const activeBtn = document.querySelector(`[data-filter="${type}"]`);
+            activeBtn.classList.remove('bg-gray-100', 'text-gray-700');
+            activeBtn.classList.add('bg-dr-blue', 'text-white');
+            
+            if (type === 'all') {
+                currentProperties = properties;
+            } else {
+                currentProperties = properties.filter(property => 
+                    property.type === type || property.category === type
+                );
+            }
+            
+            renderProperties();
+        }
+
+        function searchProperties() {
+            const location = document.getElementById('locationInput').value.toLowerCase();
+            const checkin = document.getElementById('checkinInput').value;
+            const checkout = document.getElementById('checkoutInput').value;
+            const guests = document.getElementById('guestSelect').value;
+            
+            let filteredProperties = properties;
+            
+            if (location) {
+                filteredProperties = filteredProperties.filter(property => 
+                    property.location.toLowerCase().includes(location) ||
+                    property.title.toLowerCase().includes(location)
+                );
+            }
+            
+            if (currentFilter !== 'all') {
+                filteredProperties = filteredProperties.filter(property => 
+                    property.type === currentFilter || property.category === currentFilter
+                );
+            }
+            
+            currentProperties = filteredProperties;
+            renderProperties();
+            
+            // Show search feedback
+            const resultsCount = currentProperties.length;
+            const grid = document.getElementById('propertyGrid');
+            
+            // Remove existing search results
+            const existingResults = document.getElementById('searchResults');
+            if (existingResults) existingResults.remove();
+            
+            grid.insertAdjacentHTML('beforebegin', `
+                <div class="bg-gradient-to-r from-dr-blue via-nigeria-green to-dr-orange text-white rounded-2xl p-6 mb-8 shadow-lg" id="searchResults">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">Search Results</h3>
+                            <p class="opacity-90">Found ${resultsCount} properties${location ? ` in "${location}"` : ''} across Nigeria</p>
+                        </div>
+                        <button onclick="document.getElementById('searchResults').remove()" class="text-white hover:text-gray-200 text-2xl">×</button>
+                    </div>
+                </div>
+            `);
+        }
+
+        function openModal(propertyId) {
+            const property = properties.find(p => p.id === propertyId);
+            const modal = document.getElementById('propertyModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            title.textContent = property.title;
+            content.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <div class="h-80 bg-gradient-to-br from-dr-blue via-nigeria-green to-dr-orange rounded-2xl flex items-center justify-center text-9xl mb-6 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-black opacity-20"></div>
+                            <span class="relative z-10">${property.image}</span>
+                            <div class="absolute top-4 right-4 bg-nigeria-green bg-opacity-90 px-3 py-1 rounded-full">
+                                <span class="text-white font-bold text-sm">🇳🇬 NIGERIA</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gradient-to-r from-dr-blue to-dr-light-blue text-white p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold">${property.guests}</div>
+                                <div class="text-sm opacity-90">Guests</div>
+                            </div>
+                            <div class="bg-gradient-to-r from-dr-orange to-red-500 text-white p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold">${property.bedrooms}</div>
+                                <div class="text-sm opacity-90">Bedrooms</div>
+                            </div>
+                            <div class="bg-gradient-to-r from-nigeria-green to-green-600 text-white p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold">${property.bathrooms}</div>
+                                <div class="text-sm opacity-90">Bathrooms</div>
+                            </div>
+                            <div class="bg-gradient-to-r from-red-500 to-dr-orange text-white p-4 rounded-xl text-center">
+                                <div class="text-2xl font-bold">⭐ ${property.rating}</div>
+                                <div class="text-sm opacity-90">Rating</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mb-6">
+                            <h3 class="font-bold text-xl mb-3 text-dr-blue">Location</h3>
+                            <p class="text-gray-700 text-lg">${property.location}</p>
+                        </div>
+                        <div class="mb-6">
+                            <h3 class="font-bold text-xl mb-3 text-dr-blue">Description</h3>
+                            <p class="text-gray-700 leading-relaxed">${property.description}</p>
+                        </div>
+                        <div class="mb-6">
+                            <h3 class="font-bold text-xl mb-3 text-dr-blue">Premium Amenities</h3>
+                            <div class="grid grid-cols-2 gap-2">
+                                ${property.amenities.map(amenity => `
+                                    <div class="bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 px-4 py-2 rounded-lg text-sm font-semibold border border-green-200">
+                                        ✓ ${amenity}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-gray-50 to-blue-50 p-6 rounded-2xl border border-gray-200">
+                            <div class="flex justify-between items-center mb-4">
+                                <div>
+                                    <span class="text-3xl font-bold text-dr-orange">${formatNaira(property.price)}</span>
+                                    <span class="text-gray-600 text-lg">per night</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm text-gray-600">${property.reviews} reviews</div>
+                                    <div class="text-dr-blue font-semibold">⭐ ${property.rating} rating</div>
+                                </div>
+                            </div>
+                            <button onclick="bookProperty(${property.id})" class="w-full bg-gradient-to-r from-dr-orange to-red-500 hover:from-red-500 hover:to-dr-orange text-white py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                Reserve Now - Digital Ridr
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('propertyModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function bookProperty(propertyId) {
+            const property = properties.find(p => p.id === propertyId);
+            alert(`🎉 Booking Confirmed!\n\n"${property.title}" has been reserved through Digital Ridr Nigeria.\n\n✅ Confirmation SMS sent to your phone\n✅ 24/7 Nigerian customer support activated\n✅ Premium Nigerian hospitality guaranteed\n\nNa wa o! Thank you for choosing Digital Ridr - Nigeria's finest travel companion! 🇳🇬`);
+            closeModal();
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProperties();
+            
+            // Set default dates
+            const today = new Date();
+            const checkin = new Date(today);
+            checkin.setDate(checkin.getDate() + 1);
+            const checkout = new Date(today);
+            checkout.setDate(checkout.getDate() + 8);
+            
+            document.getElementById('checkinInput').value = checkin.toISOString().split('T')[0];
+            document.getElementById('checkoutInput').value = checkout.toISOString().split('T')[0];
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('propertyModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'981f6d5c6560bea0',t:'MTc1ODM1MTQzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
